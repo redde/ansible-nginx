@@ -5,21 +5,34 @@
   ignore_errors: yes
 
 - name: Add nginx repository
-  apt_repository: repo=ppa:nginx/stable
+  apt_repository:
+    repo: ppa:nginx/stable
   when: nginx_installed|failed
 
 - name: Install nginx from package
-  apt: name=nginx state=latest update_cache=yes
+  apt:
+    name: nginx
+    state: latest
+    update_cache: yes
   when: nginx_installed|failed
 
 - name: Remove the default app
-  file: dest=/etc/nginx/sites-enabled/default state=absent
+  file:
+    dest: /etc/nginx/sites-enabled/default
+    state: absent
 
 - name: Copy nginx.conf
-  template: src=nginx.conf.j2 dest=/etc/nginx/nginx.conf owner=root group=root
+  template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/nginx.conf
+    owner: root
+    group: root
   notify: 
     - restart nginx
 
 - name: Ensure nginx is started
-  service: name=nginx state=started enabled=true
+  service:
+    name: nginx
+    state: started
+    enabled: true
   sudo: true
