@@ -1,0 +1,7 @@
+---
+nginx_worker_processes: 4
+nginx_worker_priority: 15
+nginx_worker_connections: 768
+nginx_keepalive_timeout: 65
+nginx_types_hash_max_size: 2048
+nginx_server_names_hash_bucket_size: 64
